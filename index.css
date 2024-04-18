@@ -173,8 +173,14 @@ footer div a:hover{
 .contenedor-usuarios{
     width: 80%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: 0 auto;
+}
+
+.cuerpo-tabla{
+    display: flex;
+    flex-direction: column;
 }
 
 @media only screen and (min-width: 600px) {

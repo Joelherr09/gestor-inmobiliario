@@ -1,4 +1,11 @@
+<?php
 
+session_start();
+if(isset($_SESSION['email']))
+    {
+        $email = $_SESSION['email'];
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +37,10 @@
         </nav>
     </header>
 
+    <div>
+        <?php  $_SESSION['email'] ?>
+    </div>
+
     <div class="contenedor-usuarios">
         <thead>
             <tr>
@@ -38,18 +49,17 @@
                 <th>Email</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="cuerpo-tabla">
             <?php
                 include("conexion.php");
                 $sql = $conexion->query("select * from usuario");
                 while($datos = $sql->fetch_object()){ ?>
-                    <tr> 
-                        <td><?php $datos->nombre ?></td>
-                        <td><?php $datos->apellido ?></td>
-                        <td><?php $datos->email ?></td>
+                    <tr class="cuerpo-tabla"> 
+                        <td><?php echo$datos->nombre; ?></td>
+                        <td><?php echo$datos->apellido; ?></td>
+                        <td><?php echo$datos->email; ?></td>
                     </tr>
-            <?php
-            } ?>
+                <?php } ?>
         </tbody>
     </div>
 
