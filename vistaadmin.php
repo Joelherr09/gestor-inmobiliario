@@ -4,6 +4,18 @@ session_start();
 if(isset($_SESSION['email']))
     {
         $email = $_SESSION['email'];
+        $nombre = $_SESSION['nombre'];
+        $tipo = $_SESSION['tipo'];
+
+        switch($tipo){
+            case 1: $tipo="Administrador";
+                break;
+            case 2: $tipo="Propietario";
+                break;
+            case 3: $tipo="Vendedor";
+                break;
+        }
+
     }
 ?>
 
@@ -21,8 +33,8 @@ if(isset($_SESSION['email']))
         <nav>
             <div class="links">
                 <div class="boton-cuentas">
-                    <a href="registrarpropietario.php" class="boton-registrarse">Registrarse</a>
-                    <a href="iniciarsesion.php"class="boton-entrar">Iniciar Sesión</a>
+                    <p>Bienvenido <strong><?php echo$nombre; ?></strong></p>
+                    <a href="iniciarsesion.php"class="boton-entrar">Cerrar Sesión</a>
                 </div>
                 <div class="logo">
                     <h1 class="logo-letras"><a class="logo-letras" href="index.html">COKIMPU CASAS</a></h1>
@@ -38,8 +50,13 @@ if(isset($_SESSION['email']))
     </header>
 
     <div>
-        <?php  $_SESSION['email'] ?>
-    </div>
+
+        <div>
+            <div>
+                <h1><?php echo$nombre; ?></h1>
+                <h1><?php echo$tipo; ?></h1>
+            </div>
+        </div>
 
         <div class="contenedor-lista-usuarios">
             <div class="cuerpo-tabla">
@@ -62,6 +79,10 @@ if(isset($_SESSION['email']))
                     <?php } ?>
             </div>
         </div>
+
+    </div>
+
+
 
     
 

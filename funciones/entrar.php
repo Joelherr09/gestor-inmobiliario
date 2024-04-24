@@ -16,7 +16,15 @@ if(!empty($_POST["entrar"])){
         if($cont!=0){
             session_start();
             $_SESSION['email']=$datos['email'];
-            header("Location:usuarios.php");
+            $_SESSION['tipo']=$datos['tipo_usuario'];
+            $_SESSION['nombre']=$datos['nombre'];
+            $_SESSION['apellido']=$datos['apellido'];
+            if($_SESSION['tipo']){
+                header("Location:vistaadmin.php");
+            }else{
+                header("Location:usuarios.php");
+            }
+            
         }else{
             header("Location:index.html");
             }
