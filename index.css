@@ -186,6 +186,8 @@ footer div a:hover{
     width: 100px;
 }
 
+
+
 @media only screen and (min-width: 600px) {
     .section-destacados{
         display: flex;
@@ -272,6 +274,7 @@ footer div a:hover{
         justify-content: center;
         margin: 0 auto;
         align-items: center;
+        
     }
     .datos{
         display: flex;
@@ -279,18 +282,89 @@ footer div a:hover{
         justify-content: flex-start;
         width: 100%;
         margin: 0 auto;
+        gap: 30px;
     }
     .contenedor-lista-usuarios{
-        background-color: aliceblue;
-        width: 60%;
-        padding: 10px 40px 10px 40px;
+        grid-area: 1 / 2 / 2 / 3;
+        border: 1px solid black;
+        width: 100%;
         margin: 0 auto;
-        margin-top: 100px;
-        justify-content: center;
         align-items: center;
+        padding: 10px 20px;
+        margin-left: -100px;
     }
     .campo-nombre{
         width: 100px;
     }
+    .campo-email{
+        width: 180px;
+    }
+    .contenedor-cuerpo{
+        display: grid;
+        grid-template-columns: repeat(1, full);
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        margin-top: 50px;
+    }
+    .cuadro-info-usuario{
+        grid-area: 1 / 1 / 2 / 2;
+        border: 1px solid black;
+        width: 50%;
+        padding: 10px 20px;
+        margin: 0 auto;
+    }
+    .titulo-panel{
+        padding-top: 20px;
+        margin: 0 auto;
+        text-align: center;
+    }
 
+
+    #contenedor{
+        width: 500px;
+        margin: auto;
+    }
+    
+    #sesion{
+        width: 400px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    
+    #caja_menu{
+        width: 800px;
+        margin: auto;
+        background-color: aliceblue;
+    }
+    
+    #caja_grilla{
+        width: 1000px;
+        margin: auto;
+        margin-top: 50px;
+        background-color: aliceblue;
+    }
+    
+    .alieartxt{
+        text-align: center;
+    }
+    
+    .quitarhipervinculo{
+        text-decoration: none;
+        color: #336699;
+        text-align: center;
+    }
+    
+    .caja{
+        
+        border:1px solid #000;
+        width: 120px;
+        height: 150px;
+        padding: 10px;
+    
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
 }
