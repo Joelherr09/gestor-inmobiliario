@@ -1,3 +1,7 @@
+<?php
+    include("conexion.php");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -37,13 +41,12 @@
 
     <section class="form-contenedor-login">
         <div class="login">
-            <form action="" name="form" method="POST" class="form-iniciarsesion">
+            <form action="entrar.php" name="form" method="POST" class="form-iniciarsesion">
             
                 <h1>INICIAR SESIÓN</h1>
 
                 <?php
                         include("conexion.php");
-                        include("funciones/entrar.php");
                 ?>
 
                 <input type="email" id="email" name="email"  placeholder="ejemplo@ejemplo.com">

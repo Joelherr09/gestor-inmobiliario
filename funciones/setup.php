@@ -1,5 +1,9 @@
 <?php
 
+function conectar(){
+    $con=mysqli_connect("localhost","root","","bdprueba");
+    return $con;
+}
 
 function tipo($t)
     {
