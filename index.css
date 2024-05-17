@@ -185,7 +185,10 @@ footer div a:hover{
 .campo-nombre{
     width: 100px;
 }
-
+.columna-navbar{
+    display: flex;
+    flex-direction: column;
+}
 
 
 @media only screen and (min-width: 600px) {
@@ -366,5 +369,9 @@ footer div a:hover{
         -moz-border-radius: 10px;
         border-radius: 10px;
         margin: auto;
+    }
+    .columna-navbar{
+        display: flex;
+        flex-direction: column;
     }
 }

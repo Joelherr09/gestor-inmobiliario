@@ -1,0 +1,45 @@
+#contenedor{
+    width: 500px;
+    margin: auto;
+}
+
+#sesion{
+    width: 400px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#caja_menu{
+    width: 800px;
+    margin: auto;
+    background-color: aliceblue;
+}
+
+#caja_grilla{
+    width: 1000px;
+    margin: auto;
+    background-color: aliceblue;
+}
+
+.alieartxt{
+    text-align: center;
+}
+
+.quitarhipervinculo{
+    text-decoration: none;
+    color: #336699;
+    text-align: center;
+}
+
+.caja{
+    
+    border:1px solid #000;
+    width: 120px;
+    height: 150px;
+    padding: 10px;
+
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin: auto;
+}
