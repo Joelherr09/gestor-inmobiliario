@@ -36,7 +36,7 @@ function eliminar()
 {
     if($_SESSION['id']!=$_POST['idoc'])
     {
-        $sql="DELETE FROM `email` WHERE `email`.`id` =".$_POST['idoc'];
+        $sql="DELETE FROM `usuario` WHERE `id` =".$_POST['idoc'];
         mysqli_query(conectar(),$sql);
         header("Location:vistaadmin.php");
         exit;
@@ -56,9 +56,9 @@ if(isset($_GET['id']))
 {
     if($_GET['estado']==1)
     {
-        $sql="UPDATE `usuario` SET `estado` = '0' WHERE `usuarios`.`id` =".$_GET['id'];
+        $sql="UPDATE `usuario` SET `estado` = '0' WHERE `usuario`.`id` =".$_GET['id'];
     }else{
-        $sql="UPDATE `usuario` SET `estado` = '1' WHERE `usuarios`.`id` =".$_GET['id'];
+        $sql="UPDATE `usuario` SET `estado` = '1' WHERE `usuario`.`id` =".$_GET['id'];
     }
     mysqli_query(conectar(),$sql);
     header("Location:vistaadmin.php");
