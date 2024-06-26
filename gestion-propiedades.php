@@ -282,6 +282,7 @@ if(isset($_SESSION['email']))    {
                     <th>Sector</th>
                     <th>Tipo</th>
                     <th>Precio</th>
+                    <th>Editar IMG</th>
                     <th>Estado</th>
                     <th>Accion</th>
                 </tr>
@@ -304,6 +305,11 @@ if(isset($_SESSION['email']))    {
                                 <td style="max-width:100px;"><?php echo $datos['idsector'];?> </td>
                                 <td style="max-width:100px;"><?php if($datos['tipo_propiedad'] == 1){ echo"Casa";}else  if($datos['tipo_propiedad'] == 2){ echo"Terreno";} if($datos['tipo_propiedad'] == 3){ echo"Dpartamento";}?> </td>
                                 <td><?php echo $datos['precio'];?> </td>
+                                <td>
+                                    <a href="edicion_imagenes.php?id=<?php echo $datos['idpropiedades'];?>">
+                                        <img src="img/ico/update.png" width="24px">
+                                    </a>
+                                </td>
                                 <td><?php 
                                     if($datos['estado']==1)
                                     {
@@ -343,6 +349,11 @@ if(isset($_SESSION['email']))    {
                                 <td style="max-width:100px;"><?php echo $datos['idsector'];?> </td>
                                 <td style="max-width:100px;"><?php if($datos['tipo_propiedad'] == 1){ echo"Casa";}else  if($datos['tipo_propiedad'] == 2){ echo"Terreno";} if($datos['tipo_propiedad'] == 3){ echo"Dpartamento";}?> </td>
                                 <td><?php echo $datos['precio'];?> </td>
+                                <td>
+                                    <a href="edicion_imagenes.php?id=<?php echo $datos['idpropiedades'];?>">
+                                        <img src="img/ico/update.png" width="24px">
+                                    </a>
+                                </td>
                                 <td><?php 
                                     if($datos['estado']==1)
                                     {

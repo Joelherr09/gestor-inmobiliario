@@ -175,10 +175,10 @@ if(isset($_SESSION['email']))
                         <h5><?php echo$datos_tipo['titulo']; ?></h5>
                         <p style="color:#000300;font-size:0.8rem;"><?php echo$datos_tipo['descripcion']; ?></p>
                     </div>
-                    <div style="display:flex; gap:5px; justify-content:center;align-items:center;">
-                        <p style="margin:0;">H:<?php echo$datos_tipo['habitaciones'];?></p>
-                        <p style="margin:0;">B:<?php echo$datos_tipo['baños'];?></p>
-                        <p style="margin:0;">M:<?php echo$datos_tipo['metros_cuadrados'];?></p>
+                    <div style="display:flex; gap:5px;padding:10px 2px; justify-content:center;align-items:center;">
+                        <p style="margin:0;"><img src="img/ico/sofa.png" style="max-width:30px;max-height:30px;" width="30" height="30" alt="">:<?php echo$datos_tipo['habitaciones'];?></p>
+                        <p style="margin:0;"><img src="img/ico/inodoro.png" style="max-width:30px;max-height:30px;" width="30" height="30"  alt="">:<?php echo$datos_tipo['baños'];?></p>
+                        <p style="margin:0;"><img src="img/ico/cuadrado.png" style="max-width:30px;width:30px;max-height:30px;height:30px;" width="30" height="30"  alt="">:<?php echo$datos_tipo['metros_cuadrados'];?></p>
                     </div>
                 </div>
             <?php } ?>

@@ -124,8 +124,24 @@ if(isset($_SESSION['email']))
         <div class="casas-inicio"></div>
             <?php
 
-            $sql_tipo="select * from propiedades where idpropiedades=$idPropiedad";
-            $result_tipo=mysqli_query(conectar(),$sql_tipo);
+    $sql="SELECT propiedades.idpropiedades,
+    propiedades.titulo,
+    propiedades.descripcion,
+    propiedades.precio,
+    propiedades.estado,
+    propiedades.habitaciones,
+    propiedades.baños,
+    propiedades.metros_cuadrados,
+    galeria.fotografia,
+    galeria.principal,
+    galeria.estado AS estado1
+    FROM
+    propiedades
+    INNER JOIN galeria ON propiedades.idpropiedades = galeria.idpropiedades
+    WHERE
+    propiedades.estado = 1 AND
+    galeria.principal = 1 AND galeria.estado = 1 AND propiedades.idpropiedades = '$idPropiedad'";
+            $result_tipo=mysqli_query(conectar(),$sql);
             while($datos_tipo=mysqli_fetch_array($result_tipo)){
                 $uf = ($datos_tipo['precio']/37);
                 $data1 = bcdiv($uf, '1', 1);
@@ -133,7 +149,7 @@ if(isset($_SESSION['email']))
                 <div style="width:90%; margin:0 auto;"  id="<?php echo $datos_tipo['idpropiedades']; ?>">  
                     <div style="display:flex;gap:10px;">
                         <div style="display:flex;flex-direction:column;align-items:center;">
-                            <img src="img/casa-muestra.jpg" alt="" style="width:50$;max-width:700px;min-width:50%;border-radius:6px;">
+                            <img src="img/casas/<?php echo $datos_tipo['fotografia'];?>" alt="" style="width:50$;max-width:700px;min-width:50%;border-radius:6px;">
                         </div>
                         <div style="border:0.5px solid gray;border-radius:5px; paddign:8px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
                             <h1 style="margin:6px 2px;"><?php echo$datos_tipo['titulo']; ?></h1>
@@ -148,9 +164,9 @@ if(isset($_SESSION['email']))
                     </div>
                     <hr>
                     <div style="display:flex; gap:10px; justify-content:center;align-items:center;">
-                        <p style="margin:0;">H:<?php echo$datos_tipo['habitaciones'];?></p>
-                        <p style="margin:0;">B:<?php echo$datos_tipo['baños'];?></p>
-                        <p style="margin:0;">m2:<?php echo$datos_tipo['metros_cuadrados'];?></p>
+                        <p style="margin:0;"><img src="img/ico/sofa.png" style="max-width:30px;max-height:30px;" width="30" height="30" alt="">:<?php echo$datos_tipo['habitaciones'];?></p>
+                        <p style="margin:0;"><img src="img/ico/inodoro.png" style="max-width:30px;max-height:30px;" width="30" height="30"  alt="">:<?php echo$datos_tipo['baños'];?></p>
+                        <p style="margin:0;"><img src="img/ico/cuadrado.png" style="max-width:30px;width:30px;max-height:30px;height:30px;" width="30" height="30"  alt="">:<?php echo$datos_tipo['metros_cuadrados'];?></p>
                     </div>
                     <hr>
                     <div>
