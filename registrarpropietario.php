@@ -1,3 +1,10 @@
+<?php
+include ("conexion.php");
+include("funciones/setup.php");
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,7 +20,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-
+    <script>
+        function validar(btn){
+            if (document.form.frm_rut.value == "") {
+                        alert("Debe Ingresar el RUT");
+                        document.form.frm_rut.focus();
+                        return false;
+                    } else {
+                        if (!Fn.validaRut(document.form.frm_rut.value)) {
+                            alert("RUT PNK");
+                            document.form.frm_rut.focus();
+                            return false;
+                        }
+                    }
+                document.form.accion.value = btn;
+                document.form.submit();
+        }
+        var Fn = {
+            // Valida el rut con su cadena completa "XXXXXXXX-X"
+            validaRut: function (rutCompleto) {
+                if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto))
+                    return false;
+                var tmp = rutCompleto.split('-');
+                var digv = tmp[1];
+                var rut = tmp[0];
+                if (digv == 'K') digv = 'k';
+                return (Fn.dv(rut) == digv);
+            },
+            dv: function (T) {
+                var M = 0, S = 1;
+                for (; T; T = Math.floor(T / 10))
+                    S = (S + T % 10 * (9 - M++ % 6)) % 11;
+                return S ? S - 1 : 'k';
+            }
+        }
+    </script>
 
 
 </head>
@@ -40,13 +81,13 @@
 
     <section class="form-contenedor">
         <div class="registro">
-            <form action="" method="POST" class="form-iniciarsesion">
+            <form action="" method="POST" id="frm" class="form-iniciarsesion">
                 
                 <h1>Registrar</h1>
 
                     <?php
                         include("conexion.php");
-                        include("funciones/registrar.php");
+                        include("registrar.php");
                     ?>
 
                 <div>
@@ -64,9 +105,33 @@
                     </div>
                     <div class="alinear">
                         <label for="clave">Contraseña</label>
-                        <input type="password" id="clave" name="clave" minlength="8"  placeholder="Contraseña">
+                        <input type="password" id="clave1" name="clave1" minlength="8"  placeholder="Contraseña">
                     </div>
-                    <input type="submit" name="registro" value="Entrar">
+                    <div class="alinear">
+                        <label for="clave">Repite Contraseña</label>
+                        <input type="password" id="clave2" name="clave2" minlength="8"  placeholder="Contraseña">
+                    </div>
+                    <div class="alinear">
+                            <label for="lbl_tipo" class="form-label">Tipo de Usuario:</label>
+                            <select class="form-select" id="frm_tipo" name="frm_tipo">
+                                <option value="0">Seleccionar</option>
+                                <?php
+                                 
+                                 $sql_tipo="select * from tipo_usuario where estado=1 and id>1";
+                                 $result_tipo=mysqli_query(conectar(),$sql_tipo);
+                                 while($datos_tipo=mysqli_fetch_array($result_tipo))
+                                 {?>
+                                        <option value="<?php echo $datos_tipo['id'];?>"<?php if(isset($_GET['id'])){ if($datos_usu['tipo_usuario']==$datos_tipo['id']){?>selected <?php }} ?>><?php echo $datos_tipo['tipo'];?></option>
+                                 <?php
+                                 }
+                                ?>
+                            </select>
+                    </div>
+                    <div class="alinear">
+                            <label for="lbl_rut" class="form-label">RUT:</label>
+                            <input type="text" class="form-control" id="frm_rut" minlength="8" placeholder="XXXXXXXX-X" name="frm_rut" >
+                    </div>
+                    <input onclick="validar(this.value);" type="submit" name="registro" value="Entrar">
                 </div>
 
                 

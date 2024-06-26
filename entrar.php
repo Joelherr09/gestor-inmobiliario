@@ -1,18 +1,18 @@
 <?php 
 include("conexion.php");
+include("funciones/setup.php");
 
 if(!empty($_POST["entrar"])){
     if(empty($_POST["email"]) and empty($_POST["clave"])){
         echo "<div class='alerta'>Los campos está vacíos<div/>";
     }else{
-        $email = $_POST["email"];
-        $clave = $_POST["clave"];
+        $sql="select * from usuario where email='".$_POST['email']."' and clave='".md5($_POST['clave'])."' and estado=1";
 
-        $sql = $conexion->query("select * from usuario where email='$email' and clave='$clave'");
-
-        $datos = mysqli_fetch_array($sql);
-        $cont = mysqli_num_rows($sql);
+        $result=mysqli_query(conectar(),$sql);
+        //obtener datos de base de datos
+        $datos=mysqli_fetch_array($result);
         
+        $cont=mysqli_num_rows($result);
 
         if($cont!=0){
             session_start();
@@ -21,14 +21,16 @@ if(!empty($_POST["entrar"])){
             $_SESSION['tipo']=$datos['tipo_usuario'];
             $_SESSION['nombre']=$datos['nombre'];
             $_SESSION['apellido']=$datos['apellido'];
-            if($_SESSION['tipo']){
+            if($_SESSION['tipo'] == 1){
                 header("Location:vistaadmin.php");
-            }else{
+            }else if($_SESSION['tipo'] == 2){
+                header("Location:usuarios.php");
+            }else if($_SESSION['tipo'] == 3){
                 header("Location:usuarios.php");
             }
             
         }else{
-            header("Location:index.html");
+            header("Location:index.php");
             }
         }
 

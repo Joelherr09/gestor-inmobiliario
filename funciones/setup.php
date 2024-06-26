@@ -12,7 +12,7 @@ function tipo($t)
                 break;
             case 2: $tipo="Propietario";
                 break;
-            case 3: $tipo="Vendedor";
+            case 3: $tipo="Gestor Inmobiliario";
                 break;
         }
 

@@ -17,7 +17,7 @@ if (isset($_SESSION['email'])) {
             $tipo = "Propietario";
             break;
         case 3:
-            $tipo = "Vendedor";
+            $tipo = "Gestor Inmobiliario";
             break;
     }
 
@@ -26,8 +26,7 @@ if (isset($_SESSION['email'])) {
         $result_usu = mysqli_query(conectar(), $sql_usu);
         $datos_usu = mysqli_fetch_array($result_usu);
     }
-
-    ?>
+    if($_SESSION['tipo'] == 1){  ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -147,34 +146,59 @@ if (isset($_SESSION['email'])) {
     </head>
 
     <body>
-        <header>
-            <nav>
+    <header>
+        <nav>
                 <div class="links">
                     <div class="boton-cuentas">
-                        <div class="columna-navbar" style="display:flex;flex-direction:column;">
-                            <p style="margin:0;">Bienvenido <strong><?php echo $nombre; ?></strong></p>
-                            <p><?php echo $tipo ?></p>
-                        </div>
-                        <a href="cerrar.php" class="boton-entrar">Cerrar Sesión</a>
-                    </div>
-                    <div class="logo">
-                        <h1 class="logo-letras"><a class="logo-letras" href="index.html">COKIMPU CASAS</a></h1>
-                    </div>
-                    <div class="links-navbar">
+                        <div class="columna-navbar">
+                            <?php if(isset($_SESSION['email'])) { ?>
+                                    <div style="display:flex;flex-direction:column;margin:0 auto; justify-content:center;align-items:center;">
+                                        <div style="display:flex; justify-content:space-between;margin:0 auto; align-items:center;">
+                                            <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                                                <p style="margin:0;">Bienvenido <strong><?php echo $nombre; ?></strong></p>
+                                                <p><?php echo $tipo ?></p>
+                                            </div>
+                                            <div>
+                                                <a href="cerrar.php" class="boton-entrar">Cerrar Sesión</a>
+                                            </div>
+                                        </div>
+                                        
 
-                        <a href="index.html">Ventas</a>
-                        <a href="index.html">Arriendos</a>
+                                    </div>
+                                    <div style="display:flex;margin:0 auto; justify-content:center;align-items:center;">
+                                        <a href="usuarios.php" class="boton-entrar">Perfil</a>
+                                        <?php if($_SESSION['tipo'] == 2){ ?>
+                                            <a href="gestion-propiedades.php" class="boton-entrar">Gestión Propiedades</a>
+                                        <?php } ?>
+                                        <?php if($_SESSION['tipo'] == 1){ ?>
+                                            <a href="gestion-propiedades.php" class="boton-entrar">Gestión Propiedades</a>
+                                            <a href="vistaadmin.php" class="boton-entrar">Gestión Usuarios</a>
+                                        <?php } ?>
+                                        
+                                        <?php }else { ?>
+                                                <div class="boton-cuentas">
+                                                    <a href="registrarpropietario.php" class="boton-registrarse">Registrarse</a>
+                                                    <a href="iniciarsesion.php"class="boton-entrar">Iniciar Sesión</a>
+                                                </div>
+
+                                        <?php } ?>
+
+                                    </div>
+                        </div>
+                    </div>
+                    <div class="logo"  style="margin:0 auto;display:flex;justify-content:center;" >
+                        <h1 class="logo-letras"><a class="logo-letras" style="margin:0 auto;display:flex;font-weight:700;text-decoration:none;color:black;" href="index.php">COKIMPU CASAS</a></h1>
                     </div>
                 </div>
 
             </nav>
-        </header>
+    </header>
 
 
         <hr>
 
 
-        <div id="caja_menu">
+        <div id="caja_menu" style="border-radius:10px;">
         <div class="card">
             <div class="card-header alieartxt">Administrador de Usuarios</div>
             <div class="card-body">
@@ -271,7 +295,7 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
     <hr>
-    <div id="caja_grilla">
+    <div id="caja_grilla" style="border-radius:10px;">
         <div class="card">
             <div class="card-header alieartxt">Listado de Usuarios del Sistema</div>
             <div class="card-body">
@@ -350,8 +374,7 @@ if (isset($_SESSION['email'])) {
 
     </html>
     <?php
-} else {
 
-    header("Location:error.html");
-
-} ?>
+    }else{ header("index.php"); }
+    }
+?>
