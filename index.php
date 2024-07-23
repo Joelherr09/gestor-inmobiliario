@@ -1,6 +1,6 @@
 <?php
 include("conexion.php");
-include("funciones/setup.php");
+include("setup.php");
 
 session_start();
 if(isset($_SESSION['email']))
@@ -161,15 +161,23 @@ if(isset($_SESSION['email']))
 
     <section class="section-destacados">
         <h1>Propiedades</h1>
-        <div style="display:flex;width:96%;margin:0 auto;">
+        <div style="display:flex;width:96%;margin:0 auto;flex-wrap: wrap;">
             <?php
 
             $sql_tipo="select * from propiedades where estado=1";
             $result_tipo=mysqli_query(conectar(),$sql_tipo);
             while($datos_tipo=mysqli_fetch_array($result_tipo)){
+                $idPropiedad = $datos_tipo['idpropiedades']; 
             ?>            
-                <div class="cuadro-casa casa-uno" style="max-width:220px;width:220px;"  id="<?php echo $datos_tipo['idpropiedades']; ?>">  
-                    <img src="img/casa-muestra.jpg" alt="">
+                <div class="cuadro-casa casa-uno" style="max-width:260px;width:260px;"  id="<?php echo $datos_tipo['idpropiedades']; ?>">  
+                <?php
+
+                    $sql_foto="select * from galeria where idpropiedades=$idPropiedad AND principal=1";
+                    $result_foto=mysqli_query(conectar(),$sql_foto);
+                    while($datos_foto=mysqli_fetch_array($result_foto)){
+                    ?>      
+                        <img src="img/casas/<?php echo$datos_foto['fotografia'];?>" alt="">
+                    <?php } ?>
                     <div class="info-cuadro" style="text-align:center;">
                         <h4 style="border-radius:5px;background-color:red;color:white;border:1px solid black;">$<?php echo$datos_tipo['precio']; ?></h4>
                         <h5><?php echo$datos_tipo['titulo']; ?></h5>

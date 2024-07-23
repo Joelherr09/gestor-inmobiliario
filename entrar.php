@@ -1,6 +1,6 @@
 <?php 
 include("conexion.php");
-include("funciones/setup.php");
+include("setup.php");
 
 if(!empty($_POST["entrar"])){
     if(empty($_POST["email"]) and empty($_POST["clave"])){

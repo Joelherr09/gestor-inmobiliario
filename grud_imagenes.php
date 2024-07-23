@@ -1,6 +1,6 @@
 <?php
 
-include("funciones/setup.php");
+include("setup.php");
 
 
 if($_GET['tipo']==1)

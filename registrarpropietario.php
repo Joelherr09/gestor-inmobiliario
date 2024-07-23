@@ -1,9 +1,11 @@
 <?php
 include ("conexion.php");
-include("funciones/setup.php");
+include("setup.php");
+
+
+
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -13,6 +15,11 @@ include("funciones/setup.php");
     <title>Registrarse</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="registrarpropietario.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/miestilo.css" rel="stylesheet">
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="vistaadmin.css">
+        <script src="js/bootstrap.bundle.min.js"></script>
 
     <link rel="icon" type="image/png" href="favicon.png">
     
@@ -21,40 +28,102 @@ include("funciones/setup.php");
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <script>
-        function validar(btn){
-            if (document.form.frm_rut.value == "") {
+            function validar(btn) {
+                if ((btn != 'Eliminar') || (btn != 'Cancelar')) {
+                    if (document.form.frm_rut.value == "") {
                         alert("Debe Ingresar el RUT");
                         document.form.frm_rut.focus();
                         return false;
                     } else {
                         if (!Fn.validaRut(document.form.frm_rut.value)) {
-                            alert("RUT PNK");
+                            alert("RUT Inválido");
                             document.form.frm_rut.focus();
                             return false;
                         }
                     }
+                    if (document.form.frm_nombres.value == "") {
+                        alert("Debe ingresar los nombres");
+                        document.form.frm_nombres.focus();
+                        return false;
+                    }
+                    if (document.form.frm_apellidos.value == "") {
+                        alert("Debe ingresar los apellidos");
+                        document.form.frm_apellidos.focus();
+                        return false;
+                    }
+
+                    if (document.form.frm_usuario.value == "") {
+                        alert("Debe ingresar el usuario");
+                        document.form.frm_usuario.focus();
+                        return false;
+                    } else {
+                        if (!validateEmail()) {
+                            alert("Email Inválido");
+                            document.form.frm_usuario.focus();
+                            return false;
+                        }
+                    }
+                    if (document.form.frm_tipo.value == 0) {
+                        alert("Debe seleccionar un tipo");
+                        document.form.frm_tipo.focus();
+                        return false;
+                    }
+
+                    if (btn == 'Ingresar') {
+                        if (document.form.frm_clave1.value == "") {
+                            alert("Debe Ingresar la Clave");
+                            document.form.frm_clave1.focus();
+                            return false;
+                        }
+                        if (document.form.frm_clave2.value == "") {
+                            alert("Debe ingresar la Repetición de la Clave");
+                            document.form.frm_clave2.focus();
+                            return false;
+                        }
+
+                        if (document.form.frm_clave1.value != document.form.frm_clave2.value) {
+                            alert("Claves Inválidas");
+                            document.form.frm_clave1.value = "";
+                            document.form.frm_clave2.value = "";
+                            document.form.frm_clave1.focus();
+                            return false;
+                        }
+                    }
+                }
+
                 document.form.accion.value = btn;
                 document.form.submit();
-        }
-        var Fn = {
-            // Valida el rut con su cadena completa "XXXXXXXX-X"
-            validaRut: function (rutCompleto) {
-                if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto))
-                    return false;
-                var tmp = rutCompleto.split('-');
-                var digv = tmp[1];
-                var rut = tmp[0];
-                if (digv == 'K') digv = 'k';
-                return (Fn.dv(rut) == digv);
-            },
-            dv: function (T) {
-                var M = 0, S = 1;
-                for (; T; T = Math.floor(T / 10))
-                    S = (S + T % 10 * (9 - M++ % 6)) % 11;
-                return S ? S - 1 : 'k';
             }
-        }
-    </script>
+
+            var Fn = {
+                // Valida el rut con su cadena completa "XXXXXXXX-X"
+                validaRut: function (rutCompleto) {
+                    if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto))
+                        return false;
+                    var tmp = rutCompleto.split('-');
+                    var digv = tmp[1];
+                    var rut = tmp[0];
+                    if (digv == 'K') digv = 'k';
+                    return (Fn.dv(rut) == digv);
+                },
+                dv: function (T) {
+                    var M = 0, S = 1;
+                    for (; T; T = Math.floor(T / 10))
+                        S = (S + T % 10 * (9 - M++ % 6)) % 11;
+                    return S ? S - 1 : 'k';
+                }
+            }
+
+            function validateEmail() {
+                var emailField = document.getElementById('frm_usuario');
+                var validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+                if (validEmail.test(emailField.value)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } 
+        </script>
 
 
 </head>
@@ -68,7 +137,7 @@ include("funciones/setup.php");
                     <a href="iniciarsesion.php"class="boton-entrar">Iniciar Sesión</a>
                 </div>
                 <div class="logo">
-                    <h1 class="logo-letras"><a class="logo-letras" href="index.html">COKIMPU CASAS</a></h1>
+                    <h1 class="logo-letras"><a class="logo-letras" href="index.php">COKIMPU CASAS</a></h1>
                 </div>
                 <div class="links-navbar">
                     <a href="#">Ventas</a>
@@ -80,38 +149,34 @@ include("funciones/setup.php");
     </header>
 
     <section class="form-contenedor">
-        <div class="registro">
-            <form action="" method="POST" id="frm" class="form-iniciarsesion">
-                
-                <h1>Registrar</h1>
-
-                    <?php
-                        include("conexion.php");
-                        include("registrar.php");
-                    ?>
-
-                <div>
-                    <div class="alinear">
-                        <label for="nombre">Nombres</label>
-                        <input type="text" name="nombre" id="nombre"  placeholder="Nombres">
+    <div  id="caja_menu" style="border-radius:10px;">
+    <div class="card">
+            <div class="card-header alieartxt">Registrar Cuenta</div>
+            <div class="card-body">
+            <form action="registrar.php" method="post" id="frm" name="form">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="lbl_rut" class="form-label">RUT:</label>
+                            <input type="text" class="form-control" id="frm_rut" name="frm_rut" value="<?php if(isset($_GET['id'])){echo $datos_usu['rut'];}?>">
+                        </div>
                     </div>
-                    <div class="alinear">
-                        <label for="apellidos">Apellidos</label>
-                        <input type="text" id="apellido" name="apellido"  placeholder="Apellidos">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="lbl_nombre" class="form-label">Nombres:</label>
+                            <input type="text" class="form-control" id="frm_nombres" name="frm_nombres" value="<?php if(isset($_GET['id'])){echo $datos_usu['nombre'];}?>">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="lbl_apellidos" class="form-label">Apellidos:</label>
+                            <input type="text" class="form-control" id="frm_apellidos" name="frm_apellidos" value="<?php if(isset($_GET['id'])){echo $datos_usu['apellido'];}?>">
+                        </div>
                     </div>
-                    <div class="alinear">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" name="email"  placeholder="ejemplo@ejemplo.com">
-                    </div>
-                    <div class="alinear">
-                        <label for="clave">Contraseña</label>
-                        <input type="password" id="clave1" name="clave1" minlength="8"  placeholder="Contraseña">
-                    </div>
-                    <div class="alinear">
-                        <label for="clave">Repite Contraseña</label>
-                        <input type="password" id="clave2" name="clave2" minlength="8"  placeholder="Contraseña">
-                    </div>
-                    <div class="alinear">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="lbl_usuario" class="form-label">Email:</label>
+                            <input type="text" class="form-control" id="frm_usuario" name="frm_usuario" value="<?php if(isset($_GET['id'])){echo $datos_usu['email'];}?>">
+                        </div>
+                        <div class="col-sm-6">
                             <label for="lbl_tipo" class="form-label">Tipo de Usuario:</label>
                             <select class="form-select" id="frm_tipo" name="frm_tipo">
                                 <option value="0">Seleccionar</option>
@@ -126,17 +191,51 @@ include("funciones/setup.php");
                                  }
                                 ?>
                             </select>
+                        </div>
                     </div>
-                    <div class="alinear">
-                            <label for="lbl_rut" class="form-label">RUT:</label>
-                            <input type="text" class="form-control" id="frm_rut" minlength="8" placeholder="XXXXXXXX-X" name="frm_rut" >
-                    </div>
-                    <input onclick="validar(this.value);" type="submit" name="registro" value="Entrar">
-                </div>
+                    <?php
 
-                
+                    if(!isset($_GET['id']))
+                    {
+                        ?>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="lbl_clave1" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" id="frm_clave1" name="frm_clave1">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="lbl_clav2" class="form-label">Repetir Contraseña:</label>
+                            <input type="password" class="form-control" id="frm_clave2" name="frm_clave2">
+                        </div>
+                    </div>
+                <?php
+                    }
+                    ?>
+                </div>
+            <hr>
+            <div class="row">
+                    <div class="col-sm-12 alieartxt">
+                        <?php
+                        if(!isset($_GET['id']))
+                        {
+                            ?>
+                        <button type="button" class="btn btn-primary" name="btn_ingresar" onclick="validar(this.value);" value="Ingresar">Registrar</button>
+                        <?php
+                        }else{
+                            ?>
+                        <button type="button" class="btn btn-success" name="btn_modificar" onclick="validar(this.value);" value="Modificar">Modificar</button>
+                        <button type="button" class="btn btn-danger" name="btn_eliminar" onclick="validar(this.value);" value="Eliminar">Eliminar</button>
+                        <?php
+                        }
+                        ?>
+                        <input type="hidden" id="accion" name="accion">
+                        <input type="hidden" id="idoc" name="idoc" value="<?php if(isset($_GET['id'])){echo $_GET['id'];}?>">
+                    </div>
+                </div>
+            </div>
             </form>
         </div>
+    </div>
 
     </section>
 
@@ -152,3 +251,4 @@ include("funciones/setup.php");
 
 </body>
 </html>
+

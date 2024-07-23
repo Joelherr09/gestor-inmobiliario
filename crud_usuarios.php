@@ -1,6 +1,6 @@
 <?php
 include("conexion.php");
-include("funciones/setup.php");
+include("setup.php");
 
 session_start();
 

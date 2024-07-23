@@ -1,6 +1,6 @@
 <?php
 include ("conexion.php");
-include("funciones/setup.php");
+include("setup.php");
 
 session_start();
 if(isset($_SESSION['email']))    {
@@ -167,7 +167,7 @@ if(isset($_SESSION['email']))    {
         <div class="card">
             <div class="card-header alieartxt">Administrador de Propiedades</div>
             <div class="card-body">
-            <form action="crud_propiedades.php" method="post" id="frm" name="form">
+            <form action="crud_propiedades.php" method="post" id="frm" name="form" enctype="multipart/form-data">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
@@ -240,6 +240,14 @@ if(isset($_SESSION['email']))    {
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="image">Image File</label>
+                            <input type="file" id="image" name="image">
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
+
                     
                 </div>
             <hr>

@@ -1,27 +1,23 @@
 <?php 
+include("conexion.php");
+include("setup.php");
 
-if ( !empty($_POST["registro"])){
-    if ( empty($_POST["nombre"]) or empty($_POST["apellido"]) or empty($_POST["email"]) or empty($_POST["clave1"]) or empty($_POST["clave2"]) and ($_POST["clave1"] === $_POST["clave2"]) ){
-        echo "<div class='alerta'>Uno de los campos está vacío<div/>";
-    }else if($_POST["clave1"] === $_POST["clave2"]){
 
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
-        $email = $_POST['email'];
-        $clave = md5($_POST['clave1']);
-        $estado = 1;
-        $tipo_usuario = $_POST['frm_tipo'];
-        $rut = $_POST['frm_rut'];
+switch($_POST['accion'])
+{
+    case "Ingresar":ingresar();
+        break;
+}
 
-        $sql = $conexion->query("insert into usuario(nombre,apellido,email,clave, estado, tipo_usuario, rut)values('$nombre','$apellido','$email','$clave','$estado','$tipo_usuario','$rut')");
-        if($sql==1){
-            echo'<div>Usuario registrado<div/>';
-        }else{
-            echo'<div class="alerta">Error al registrar<div/>';
-        }
-    }else{
-        echo "<div class='alerta'>Las contraseñas no coinciden!<div/>";
-    }
-};
+function ingresar()
+{
+    $sql="INSERT INTO `usuario` (`rut`, `nombre`, `apellido`, `email`, `clave`, `estado`, `tipo_usuario`) VALUES ('".$_POST['frm_rut']."', '".$_POST['frm_nombres']."', '".$_POST['frm_apellidos']."', '".$_POST['frm_usuario']."', '".md5($_POST['frm_clave2'])."', 0, ".$_POST['frm_tipo'].")";
+    
+    mysqli_query(conectar(),$sql);
+
+
+    header("Location:index.php");
+    exit;
+}
 
 ?>

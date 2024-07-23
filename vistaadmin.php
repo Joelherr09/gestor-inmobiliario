@@ -1,6 +1,6 @@
 <?php
 include ("conexion.php");
-include("funciones/setup.php");
+include("setup.php");
 
 session_start();
 if (isset($_SESSION['email'])) {
@@ -49,7 +49,7 @@ if (isset($_SESSION['email'])) {
                         return false;
                     } else {
                         if (!Fn.validaRut(document.form.frm_rut.value)) {
-                            alert("RUT PNK");
+                            alert("RUT Inválido");
                             document.form.frm_rut.focus();
                             return false;
                         }
@@ -71,12 +71,12 @@ if (isset($_SESSION['email'])) {
                     }
 
                     if (document.form.frm_usuario.value == "") {
-                        alert("Debe ingresar el usuario");
+                        alert("Debe ingresar un email");
                         document.form.frm_usuario.focus();
                         return false;
                     } else {
                         if (!validateEmail()) {
-                            alert("USUARIO PNK");
+                            alert("Email Inválido");
                             document.form.frm_usuario.focus();
                             return false;
                         }
@@ -230,7 +230,7 @@ if (isset($_SESSION['email'])) {
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="lbl_usuario" class="form-label">Usuario:</label>
+                            <label for="lbl_usuario" class="form-label">Email:</label>
                             <input type="text" class="form-control" id="frm_usuario" name="frm_usuario" value="<?php if(isset($_GET['id'])){echo $datos_usu['email'];}?>">
                         </div>
                         <div class="col-sm-6">
